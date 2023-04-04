@@ -1,0 +1,49 @@
+==========BN下单==========
+=====普通单
+params = {'side': 'BUY',
+          'symbol': 'BTCUSDT',  # 交易币对
+          'type': 'LIMIT',
+          'price': 23600,  # 下单价格,在限价单的时候启用，将type换成LIMIT
+          'quantity': 0.001,  # 下单数量
+          'timestamp': int(time.time() * 1000),
+          'timeInForce': 'GTC'}
+=====止损单
+params = {'side': 'SELL',
+          'symbol': 'BTCUSDT',  # 交易币对
+          'type': 'STOP_MARKET',
+          'stopPrice': 23500,
+          'quantity': 0.001,  # 下单数量
+          'priceProtect': 'FALSE',
+          'timestamp': int(time.time() * 1000),
+          'timeInForce': 'GTC'}
+=====止盈单
+params = {'side': 'SELL',
+          'symbol': 'BTCUSDT',  # 交易币对
+          'type': 'TAKE_PROFIT_MARKET',
+          'stopPrice': 24500,
+          'quantity': 0.001,  # 下单数量
+          'priceProtect': 'FALSE',
+          'timestamp': int(time.time() * 1000),
+          'timeInForce': 'GTC'}
+
+==========OK下单==========
+=====普通单
+para = {'instId': 'BTC-USDT-SWAP',  # 合约代码
+        'tdMode': 'cross',  # 设置为全仓,可以调整    isolated：逐仓    cross：全仓   cash：非保证金
+        'ordType': 'limit',  # 设置为市价单
+        'side': 'buy',  # 买卖方向
+        'sz': '1',  # 下单数量
+        'px': '23600'}
+order_info = exchange.privatePostTradeOrder(params=para)
+=====止损单
+para = {'instId': 'BTC-USDT-SWAP',  # 合约代码
+        'tdMode': 'cross',  # 设置为全仓,可以调整    isolated：逐仓    cross：全仓   cash：非保证金
+        'ordType': 'oco',  # 单向止盈止损
+        'side': 'buy',  # 买卖方向
+        'sz': '1',  # 下单数量
+        'tpTriggerPx': '23500',
+        'tpOrdPx': '-1',
+        'slTriggerPx': '24500',
+        'slOrdPx': '-1',
+        }
+order_info = exchange.privatePostTradeOrderAlgo(params=para)
