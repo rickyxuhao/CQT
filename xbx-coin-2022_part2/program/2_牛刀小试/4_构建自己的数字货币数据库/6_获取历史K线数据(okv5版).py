@@ -18,15 +18,15 @@ from datetime import timedelta
 pd.set_option('expand_frame_repr', False)  # 当列太多时不换行
 
 # =====设定参数
-exchange = ccxt.binance()  # huobipro, binance, okex5，使用huobi需要增加limit=2000，XRP-USDT-200327
+exchange = ccxt.binance({'verbose':True})  # huobipro, binance, okex5，使用huobi需要增加limit=2000，XRP-USDT-200327
 
 symbol = 'BTC/USDT'
 time_interval = '1h'  # 其他可以尝试的值：'1m', '5m', '15m', '30m', '1H', '2H', '1D', '1W', '1M', '1Y'
 
 # =====抓取数据开始结束时间
 start_time = '2020-02-01 00:00:00'
-end_time = '2021-02-02 00:00:00'
-# end_time = pd.to_datetime(start_time) + timedelta(days=1)
+# end_time = start_time 
+end_time = pd.to_datetime(start_time) + timedelta(days=1)
 
 # =====开始循环抓取数据
 df_list = []
